@@ -1,5 +1,6 @@
 // Import Express
 const express = require('express');
+const morgan = require('morgan');
 
 // Create an Express app
 const app = express()
@@ -7,8 +8,8 @@ const app = express()
 // Informs express what port we want to listen to
 const port = 3300;
 
-
-
+// Using morgan
+app.use(morgan('dev'));
 
 // Random Number Generator
 function randNum(min, max) {
@@ -25,6 +26,15 @@ const collectibles = [
     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
   ];
 
+const shoes = [
+    { name: "Birkenstocks", price: 50, type: "sandal" },
+    { name: "Air Jordans", price: 500, type: "sneaker" },
+    { name: "Air Mahomeses", price: 501, type: "sneaker" },
+    { name: "Utility Boots", price: 20, type: "boot" },
+    { name: "Velcro Sandals", price: 15, type: "sandal" },
+    { name: "Jet Boots", price: 1000, type: "boot" },
+    { name: "Fifty-Inch Heels", price: 175, type: "heel" }
+];
 
 
 // Define routes here:
@@ -45,8 +55,26 @@ app.get('/greetings', (req, res) => {
 // Defining a route for collectibles
 app.get('/collectibles/:idxParam', (req, res) => {
     const idx = req.params.idxParam;
-    res.send(`<h2>Hola<h2>`)
+    if (idx > collectibles.length) {
+        res.send(`<h2>This item is not yet in stock. Check back soon!<h2>`)
+    } else {
+        res.send(`<h2>So you want the ${collectibles[idx].name}? For ${collectibles[idx].price}, it can be yours!<h2>`)
+    }
 });
+
+// Defining a route for shoes
+// app.get('/shoes', (req, res) => {
+//     for (let i = 0; i < shoes.length; i++) {
+//     let newList = [];
+//     if (req.query.price < shoes[i].price) {
+//         res.send()
+//     } else if (req.query.price > shoes[i].price) {
+//         res.send()
+//     } else {
+//         res.send(shoes)
+//     }
+//     }
+// });
 
 // Defining a route for number roll
 app.get('/number/:rollParam', (req, res) => {
