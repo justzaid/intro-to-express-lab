@@ -63,18 +63,23 @@ app.get('/collectibles/:idxParam', (req, res) => {
 });
 
 // Defining a route for shoes
-// app.get('/shoes', (req, res) => {
-//     for (let i = 0; i < shoes.length; i++) {
-//     let newList = [];
-//     if (req.query.price < shoes[i].price) {
-//         res.send()
-//     } else if (req.query.price > shoes[i].price) {
-//         res.send()
-//     } else {
-//         res.send(shoes)
-//     }
-//     }
-// });
+app.get('/shoes', (req, res) => {
+        res.send(shoes)
+    });
+
+app.get('/shoes/min-price/:price', (req, res) => {
+        let minPrice = shoes.filter((shoe) => shoe.price > req.params.price);
+        res.send(minPrice)
+    });
+
+app.get('/shoes/max-price/:price', (req, res) => {
+        let maxPrice = shoes.filter((shoe) => shoe.price < req.params.price);
+        res.send(maxPrice)
+    });
+app.get('/shoes/:type', (req, res) => {
+        let shoeType = shoes.filter((shoe) => shoe.type === req.params.type);
+        res.send(shoeType)
+    });
 
 // Defining a route for number roll
 app.get('/number/:rollParam', (req, res) => {
