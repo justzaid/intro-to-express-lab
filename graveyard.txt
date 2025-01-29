@@ -1,0 +1,13 @@
+// app.get('/shoes/min-price/:price', (req, res) => {
+//         let minPrice = shoes.filter((shoe) => shoe.price > req.params.price);
+//         res.send(minPrice)
+//     });
+
+// app.get('/shoes/max-price/:price', (req, res) => {
+//         let maxPrice = shoes.filter((shoe) => shoe.price < req.params.price);
+//         res.send(maxPrice)
+//     });
+// app.get('/shoes/:type', (req, res) => {
+//         let shoeType = shoes.filter((shoe) => shoe.type === req.params.type);
+//         res.send(shoeType)
+//     });

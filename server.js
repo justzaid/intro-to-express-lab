@@ -64,27 +64,24 @@ app.get('/collectibles/:idxParam', (req, res) => {
 
 // Defining a route for shoes
 app.get('/shoes', (req, res) => {
-        res.send(shoes)
+    const minPrice = shoes.filter((shoe) => shoe.price > req.query.minPrice);
+    const maxPrice = shoes.filter((shoe) => shoe.price < req.query.maxPrice);
+    const shoeType = shoes.filter((shoe) => shoe.type === req.query.shoeType);
+    res.send(shoes)
+    res.send(minPrice)
+    res.send(maxPrice)
+    res.send(shoeType)
     });
 
-app.get('/shoes/min-price/:price', (req, res) => {
-        let minPrice = shoes.filter((shoe) => shoe.price > req.params.price);
-        res.send(minPrice)
-    });
-
-app.get('/shoes/max-price/:price', (req, res) => {
-        let maxPrice = shoes.filter((shoe) => shoe.price < req.params.price);
-        res.send(maxPrice)
-    });
-app.get('/shoes/:type', (req, res) => {
-        let shoeType = shoes.filter((shoe) => shoe.type === req.params.type);
-        res.send(shoeType)
-    });
 
 // Defining a route for number roll
 app.get('/number/:rollParam', (req, res) => {
     const num2 = req.params.rollParam;
-    res.send(`<h2>${randNum(0, num2)}</h2>`);
+    if (isNaN(num2)) {
+        res.send('You must specify a number.')
+    } else {
+        res.send(`<h2>You rolled a ${randNum(0, num2)}!</h2>`);
+    }
 });
 
 // Defining a route for greeting the person's name
